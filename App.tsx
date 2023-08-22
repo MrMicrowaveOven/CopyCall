@@ -7,10 +7,58 @@
 
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
+import CallLogs from 'react-native-call-log'
+
+type Call = {
+  dateTime: Date;
+  duration: Number;
+  name: string;
+  phoneNumber: Number;
+  rawType: Number;
+  timeStamp: Number;
+  type: string
+}
 
 const App = () => {
-  const copyOne = () => {}
-  const copyN = () => {}
+  const copyOne = () => { copyCall(1) }
+  const copyN = () => {
+    copyCall(5)
+  }
+  const copyCall = async (numCalls : number) => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+        {
+          title: 'Call Log Example',
+          message:
+            'Access your call logs',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        CallLogs.load(numCalls).then((calls : Call[]) => {
+          const selectedCalls = calls.map((call : Call) => {
+            return {
+              timeOfCall: call.dateTime,
+              durationInSeconds: call.duration,
+              contact: call.name,
+              phoneNumber: call.phoneNumber,
+              callType: call.type 
+            }
+          })
+          console.log(selectedCalls)
+        });
+      } else {
+        console.log('Call Log permission denied');
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.buttons}>
