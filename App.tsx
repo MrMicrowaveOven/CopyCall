@@ -8,7 +8,7 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
-import CallLogs from 'react-native-call-log'
+import CallLogs from 'react-native-call-log';
 
 type Call = {
   dateTime: Date;
