@@ -5,8 +5,8 @@
  * @format
  */
 
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 import CallLogs from 'react-native-call-log'
 
@@ -21,9 +21,11 @@ type Call = {
 }
 
 const App = () => {
+  const [numCallsToCopy, setNumCallsToCopy] = useState(2)
+
   const copyOne = () => { copyCall(1) }
-  const copyN = () => {
-    copyCall(5)
+  const copyN = (n : number) => {
+    copyCall(n)
   }
   const copyCall = async (numCalls : number) => {
     try {
@@ -65,9 +67,17 @@ const App = () => {
         <TouchableOpacity onPress={() => copyOne()} style={[styles.button, styles.copyOneButton]}>
           <Text style={[styles.buttonText, styles.oneCallText]}>Copy{"\n"}one{"\n"}call</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => copyN()} style={[styles.button, styles.copyNButton]}>
-          <Text style={[styles.buttonText, styles.nCallText]}>Copy{"\n"}several{"\n"}calls</Text>
-        </TouchableOpacity>
+        <View style={styles.nCallsButtons}>
+          <View style={styles.nCallSetButtons}>
+            <Button title={"-"} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)} />
+          </View>
+          <TouchableOpacity onPress={() => copyN(numCallsToCopy)} style={[styles.button, styles.copyNButton]}>
+            <Text style={[styles.buttonText, styles.nCallText]}>Copy{"\n"}{numCallsToCopy}{"\n"}calls</Text>
+          </TouchableOpacity>
+          <View style={styles.nCallSetButtons}>
+            <Button title={"+"} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)} />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -105,6 +115,16 @@ const styles = StyleSheet.create({
   },
   oneCallText: {},
   nCallText: {},
+  nCallsButtons: {
+    width: 80,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  nCallSetButtons: {
+    margin: 20
+  }
 });
 
 export default App;
