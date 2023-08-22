@@ -70,15 +70,15 @@ const App = () => {
           <Text style={[styles.buttonText, styles.oneCallText]}>Copy{"\n"}one{"\n"}call</Text>
         </TouchableOpacity>
         <View style={styles.nCallsButtons}>
-          <View style={styles.nCallSetButtons}>
-            <Button title={"-"} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)} />
-          </View>
+          <TouchableOpacity style={styles.nCallSetButtons} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)}>
+            <Text style={styles.nCallSetButtonsText}>-</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => copyN(numCallsToCopy)} style={[styles.button, styles.copyNButton]}>
             <Text style={[styles.buttonText, styles.nCallText]}>Copy{"\n"}{numCallsToCopy}{"\n"}calls</Text>
           </TouchableOpacity>
-          <View style={styles.nCallSetButtons}>
-            <Button title={"+"} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)} />
-          </View>
+          <TouchableOpacity style={styles.nCallSetButtons} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)}>
+            <Text style={styles.nCallSetButtonsText}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -125,7 +125,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   nCallSetButtons: {
-    margin: 20
+    width: 50,
+    height: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
+    backgroundColor: "limegreen",
+    borderRadius: 10,
+  },
+  nCallSetButtonsText: {
+    color: "black",
+    fontSize: 30,
+    textAlign: "center"
   }
 });
 
