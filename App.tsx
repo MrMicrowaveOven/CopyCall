@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 import CallLogs from 'react-native-call-log';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 type Call = {
   dateTime: Date;
@@ -52,6 +53,7 @@ const App = () => {
             }
           })
           console.log(selectedCalls)
+          Clipboard.setString(JSON.stringify(selectedCalls))
         });
       } else {
         console.log('Call Log permission denied');
