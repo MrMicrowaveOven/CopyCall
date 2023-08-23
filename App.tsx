@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dimensions, PermissionsAndroid } from 'react-native';
 import CallLogs from 'react-native-call-log';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -75,13 +75,13 @@ const App = () => {
         </TouchableOpacity>
         <View style={styles.nCallsButtons}>
           <TouchableOpacity style={[styles.nCallSetButtons, {width: smallButtonWidth, height: smallButtonWidth}]} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)}>
-            <Text style={styles.nCallSetButtonsText}>-</Text>
+            <Image source={require("./minus-sign.png")} style={styles.nCallSetIcons}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => copyN(numCallsToCopy)} style={[styles.button, styles.copyNButton, {width: buttonWidth, height: buttonWidth}]}>
             <Text style={[styles.buttonText, styles.nCallText]}>Copy{"\n"}{numCallsToCopy}{"\n"}calls</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.nCallSetButtons, {width: smallButtonWidth, height: smallButtonWidth}]} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)}>
-            <Text style={styles.nCallSetButtonsText}>+</Text>
+            <Image source={require("./plus-sign.png")} style={styles.nCallSetIcons}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -107,7 +107,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "blue",
-    borderRadius: 50,
+    borderRadius: 30,
+    borderWidth: 3,
+    borderColor: "black"
   },
   copyOneButton: {},
   copyNButton: {},
@@ -133,11 +135,12 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "limegreen",
     borderRadius: 10,
+    borderWidth: 3,
+    borderColor: "black"
   },
-  nCallSetButtonsText: {
-    color: "black",
-    fontSize: 30,
-    textAlign: "center"
+  nCallSetIcons: {
+    width: 15,
+    height: 15,
   }
 });
 
