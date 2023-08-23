@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { PermissionsAndroid } from 'react-native';
+import { Dimensions, PermissionsAndroid } from 'react-native';
 import CallLogs from 'react-native-call-log';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -23,6 +23,10 @@ type Call = {
 
 const App = () => {
   const [numCallsToCopy, setNumCallsToCopy] = useState(2)
+
+  const screenWidth = Dimensions.get("window").width
+  const buttonWidth = screenWidth / 2
+  const smallButtonWidth = screenWidth / 8
 
   const copyOne = () => { copyCall(1) }
   const copyN = (n : number) => {
@@ -66,17 +70,17 @@ const App = () => {
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => copyOne()} style={[styles.button, styles.copyOneButton]}>
+        <TouchableOpacity onPress={() => copyOne()} style={[styles.button, styles.copyOneButton, {width: buttonWidth, height: buttonWidth}]}>
           <Text style={[styles.buttonText, styles.oneCallText]}>Copy{"\n"}one{"\n"}call</Text>
         </TouchableOpacity>
         <View style={styles.nCallsButtons}>
-          <TouchableOpacity style={styles.nCallSetButtons} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)}>
+          <TouchableOpacity style={[styles.nCallSetButtons, {width: smallButtonWidth, height: smallButtonWidth}]} onPress={() => numCallsToCopy > 2 && setNumCallsToCopy(numCallsToCopy - 1)}>
             <Text style={styles.nCallSetButtonsText}>-</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => copyN(numCallsToCopy)} style={[styles.button, styles.copyNButton]}>
+          <TouchableOpacity onPress={() => copyN(numCallsToCopy)} style={[styles.button, styles.copyNButton, {width: buttonWidth, height: buttonWidth}]}>
             <Text style={[styles.buttonText, styles.nCallText]}>Copy{"\n"}{numCallsToCopy}{"\n"}calls</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.nCallSetButtons} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)}>
+          <TouchableOpacity style={[styles.nCallSetButtons, {width: smallButtonWidth, height: smallButtonWidth}]} onPress={() => setNumCallsToCopy(numCallsToCopy + 1)}>
             <Text style={styles.nCallSetButtonsText}>+</Text>
           </TouchableOpacity>
         </View>
@@ -87,7 +91,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: "rgba(0,0,0,.4)"
+    backgroundColor: "rgba(0,0,0,.4)",
   },
   buttons: {
     display: "flex",
@@ -102,8 +106,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: 200,
-    height: 200,
     backgroundColor: "blue",
     borderRadius: 50,
   },
@@ -125,8 +127,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   nCallSetButtons: {
-    width: 50,
-    height: 50,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
