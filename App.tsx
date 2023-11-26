@@ -29,9 +29,15 @@ const App = () => {
   const smallButtonWidth = screenWidth / 8
 
   const copyOne = () => { copyCall(1) }
+
   const copyN = (n : number) => {
     copyCall(n)
   }
+
+  const setDateTime = () => {
+    Clipboard.setString(new Date().toLocaleString())
+  }
+
   const copyCall = async (numCalls : number) => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -84,6 +90,9 @@ const App = () => {
             <Image source={require("./plus-sign.png")} style={styles.nCallSetIcons}/>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity style={[styles.copyDateTimeButton, {width: 100, height: 100}]} onPress={() => setDateTime()}>
+          <Image source={require("./icon-date-time-copy.png")} style={styles.dateTimeCopyIcon}/>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -141,6 +150,20 @@ const styles = StyleSheet.create({
   nCallSetIcons: {
     width: 15,
     height: 15,
+  },
+  copyDateTimeButton: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "aqua",
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: "black"
+  },
+  dateTimeCopyIcon: {
+    width: 70,
+    height: 70,
   }
 });
 
