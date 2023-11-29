@@ -120,6 +120,7 @@ const App = () => {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: "rgba(0,0,0,.4)",
+    height: "100%"
   },
   buttons: {
     display: "flex",
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "100%",
-    height: "100%",
+    height: "94%",
   },
   button: {
     display: "flex",
