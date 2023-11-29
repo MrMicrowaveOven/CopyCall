@@ -10,6 +10,8 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'r
 import { Dimensions, PermissionsAndroid } from 'react-native';
 import CallLogs from 'react-native-call-log';
 import Clipboard from '@react-native-clipboard/clipboard';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 type Call = {
   dateTime: Date;
@@ -28,14 +30,30 @@ const App = () => {
   const buttonWidth = screenWidth / 2
   const smallButtonWidth = screenWidth / 8
 
-  const copyOne = () => { copyCall(1) }
+  const copyOne = () => {
+    copyCall(1)
+    showMessage({
+      message: `1 call copied!`,
+      type: "success",
+    });
+  }
 
   const copyN = (n : number) => {
     copyCall(n)
+    showMessage({
+      message: `${n} calls copied!`,
+      type: "success",
+    });
   }
 
   const setDateTime = () => {
-    Clipboard.setString(new Date().toLocaleString())
+    const currentTime = new Date().toLocaleString()
+    Clipboard.setString(currentTime)
+    showMessage({
+      message: "Current DateTime copied!",
+      description: currentTime,
+      type: "success",
+    });
   }
 
   const copyCall = async (numCalls : number) => {
@@ -94,6 +112,7 @@ const App = () => {
           <Image source={require("./icon-date-time-copy.png")} style={styles.dateTimeCopyIcon}/>
         </TouchableOpacity>
       </View>
+      <FlashMessage position="bottom" />
     </SafeAreaView>
   );
 }
