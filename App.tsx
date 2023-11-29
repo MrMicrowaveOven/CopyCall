@@ -35,6 +35,7 @@ const App = () => {
     showMessage({
       message: `1 call copied!`,
       type: "success",
+      floating: true
     });
   }
 
@@ -43,6 +44,7 @@ const App = () => {
     showMessage({
       message: `${n} calls copied!`,
       type: "success",
+      floating: true
     });
   }
 
@@ -53,6 +55,7 @@ const App = () => {
       message: "Current DateTime copied!",
       description: currentTime,
       type: "success",
+      floating: true
     });
   }
 
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "100%",
-    height: "94%",
+    height: "92%",
   },
   button: {
     display: "flex",
