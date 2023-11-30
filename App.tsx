@@ -32,28 +32,27 @@ const App = () => {
 
   const copyOne = () => {
     copyCall(1)
-    showMessage({
-      message: `1 call copied!`,
-      type: "success",
-      floating: true
-    });
+    sendFlash(`1 call copied!`)
   }
 
   const copyN = (n : number) => {
     copyCall(n)
-    showMessage({
-      message: `${n} calls copied!`,
-      type: "success",
-      floating: true
-    });
+    sendFlash(`${n} calls copied!`)
   }
 
   const setDateTime = () => {
     const currentTime = new Date().toLocaleString()
     Clipboard.setString(currentTime)
+    sendFlash(
+      "Current DateTime copied!",
+      currentTime,
+    )
+  }
+
+  const sendFlash = (message: string, description: string = "") => {
     showMessage({
-      message: "Current DateTime copied!",
-      description: currentTime,
+      message: message,
+      description: description,
       type: "success",
       floating: true
     });
